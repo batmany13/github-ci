@@ -31,7 +31,8 @@ defmodule GithubCi.Mixfile do
     [{:phoenix, "~> 1.1.4"},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:tentacat, "~> 0.5"}
+     {:tentacat, "~> 0.5"},
+     {:poison, "~> 2.0"}
    ]
   end
 end

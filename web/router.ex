@@ -5,7 +5,10 @@ defmodule GithubCi.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/handler", GithubCi do
+  scope "/", GithubCi do
     pipe_through :api
+
+    post "/event_handler", EventHandlerController, :create
+    get "/status", EventHandlerController, :status
   end
 end
