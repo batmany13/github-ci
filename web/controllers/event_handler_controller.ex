@@ -15,8 +15,7 @@ defmodule GithubCi.EventHandlerController do
   end
 
   def process_pr(%{"state" => "open", "number" => number} = params) do
-    {status, msg} = GithubCi.Connector.heroku(number, params)
-    "opened PR #{number}, updating status, status code #{status}"
+    GithubCi.Connector.heroku(number, params)
   end
   def process_pr(params), do: params
 end
