@@ -8,10 +8,9 @@ defmodule GithubCi.EventHandlerController do
   def create(conn, params) do
     headers = conn.req_headers |> Enum.into(%{})
     case headers do
-      %{"x-github-event" => "pull_request"} ->
-       render(conn, "status.json", details: process_pr(params["pull_request"]))
-      %{"x-github-event" => event} ->
-       render(conn, "status.json", event: event)
+      %{"x-github-event" => "pull_request"} -> render(conn, "status.json", details: process_pr(params["pull_request"]))
+      %{"x-github-event" => event} -> render(conn, "status.json", event: event)
+      _ -> render(conn, "status.json")
     end
   end
 

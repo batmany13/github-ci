@@ -8,4 +8,5 @@ defmodule GithubCi.EventHandlerView do
   def render("status.json", %{event: event}) do
     %{"status" => "ok", "details" => "received '#{event}' event from GitHub"}
   end
+  def render("status.json", params), do: %{"status" => "ok"}
 end
