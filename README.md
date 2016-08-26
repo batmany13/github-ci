@@ -6,7 +6,10 @@ This is a simple Elixir/Phoenix application that will act as a "dummy" CI server
 
 This supports waiting for a few items
 
-* Heroku Review App - wait for a review app to be launched
+* Deployment App - wait for deployment to pass
+
+## To be implemented
+
 * Runscope - trigger a runscope test and wait for it to complete
 * Ghost Inspector - trigger a ghost inspector test and wait for it to complete
 
