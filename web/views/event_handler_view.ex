@@ -1,8 +1,8 @@
 defmodule GithubCi.EventHandlerView do
   use GithubCi.Web, :view
 
-  def render("status.json", %{pr: params}) do
-    %{"status" => "ok", "params" => Poison.encode!(params)}
+  def render("status.json", %{details: params}) do
+    %{"status" => "ok", "details" => Poison.encode!(params)}
   end
 
   def render("status.json", %{event: event}) do
