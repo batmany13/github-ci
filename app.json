@@ -1,0 +1,35 @@
+{
+  "name": "github-ci",
+  "scripts": {
+    },
+  "env": {
+    "MIX_ENV" : {
+      "required": true,
+      "value": "review"
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_API_KEY": {
+      "required": true
+    },
+    "RUNSCOPE_URL" : {
+      "value": "https://api.runscope.com/radar/ecbe185d-c15a-4b1e-ad07-33a96e7efa05/trigger?runscope_environment=7dc33cef-975e-4772-8d6c-a5c3ea5c3c7a&url=https://$HEROKU_APP_NAME.herokuapp.com"
+    },
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/techgaun/heroku-buildpack-elixir.git"
+    },
+    {
+      "url": "https://github.com/gregburek/heroku-buildpack-toolbelt"
+    }
+  ]
+}
