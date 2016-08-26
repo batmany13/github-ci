@@ -16,18 +16,8 @@ defmodule GithubCi.EventHandlerController do
   end
 
   def process_pr(%{"state" => "open", "number" => number} = params) do
-    config = Application.get_env(:github_ci, :github)
-    IO.inspect config
-    client = Tentacat.Client.new(%{access_token: config[:access_token]})
-    data = %{"state" => "pending",
-            "description" => "waiting for heroku to bring up the server",
-            "context" => "heroku review app"
-            }
-    owner = params["organization"]["login"]
-    repo = params["base"]["repo"]["name"]
-    sha = params["head"]["sha"]
-    ret = Tentacat.Repositories.Statuses.create(owner, repo, sha, data, client)
-    "opened PR #{number}, updating status, return : #{ret}"
+    {status, msg} = GithubCi.Connector.heroku(number, params)
+    "opened PR #{number}, updating status, status code #{status}"
   end
   def process_pr(params), do: params
 end
