@@ -17,7 +17,7 @@ defmodule GithubCi.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {GithubCi, []},
-     applications: [:phoenix, :cowboy, :logger, :gettext, :tentacat]]
+     applications: [:phoenix, :cowboy, :logger, :gettext, :tentacat, :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -32,7 +32,8 @@ defmodule GithubCi.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:tentacat, "~> 0.5"},
-     {:poison, "~> 2.0"}
+     {:poison, "~> 2.0"},
+     {:httpoison, "~> 0.9.0"}
    ]
   end
 end

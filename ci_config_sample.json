@@ -1,0 +1,7 @@
+{
+  "github-ci" : {
+    "deployment" :"heroku",
+    "tests" : [
+      ["runscope" ,"myurl"]
+    ]  
+}
