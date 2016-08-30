@@ -50,15 +50,16 @@ You will need to create an Elixir application that can run on Heroku.
 https://github.com/techgaun/heroku-buildpack-elixir.git    
 https://github.com/techgaun/heroku-buildpack-mix-tasks.git    
 
-```ACCESS_TOKEN=<github token>    ```
-```HEROKU_API_KEY=<heroku api key>    ```
-```SECRET_KEY_BASE=<secret key for Phoenix>    ```
-```RUNSCOPE_TOKEN=<runscope token>    ```
-```CI_CONFIG=<URI encoded ci_config.json file>    ```
+```ACCESS_TOKEN=<github token>```   
+```HEROKU_API_KEY=<heroku api key>```    
+```SECRET_KEY_BASE=<secret key for Phoenix>```    
+```RUNSCOPE_TOKEN=<runscope token>```    
+```CI_CONFIG=<URI encoded ci_config.json file>```    
 
 Generate the ci_config.json file
 
-```iex -S mix
+```
+iex -S mix
 "ci_config.json" |> File.read! |> URI.encode
 ```
 
