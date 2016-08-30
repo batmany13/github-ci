@@ -13,11 +13,6 @@ defmodule GithubCi.Runscope do
 
   def handle(_, _, _, _), do: {:error, "unknown status format"}
 
-  def status do
-   %{"bucket_key" => "to5q0u5gglr4","test_id" => "4c2e6622-ef06-4d7a-bf4b-af5a6ca7b9ac","test_run_id" => "edbb2e59-2613-4947-b380-d6e8f88535cb"}
-   |> status
-  end
-
   def parse_status({:ok, %{"error" => error}}) when not is_nil(error), do: {:error, error}
   def parse_status({:ok, %{"meta" => %{"status" => "success"}, "data" => %{"runs" => [run | _rest]}}}), do: {:ok, run}
   def parse_status({:ok, %{"meta" => %{"status" => "success"}, "data" => %{"assertions_defined" => total}}} = status) when total == 0, do: {:wait, "no tests have ran yet"}
