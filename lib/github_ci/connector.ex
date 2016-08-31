@@ -102,7 +102,6 @@ defmodule GithubCi.Connector do
     end
   end
 
-
   def parse_status({404, %{"message" => msg}}), do: {:error, msg}
   def parse_status(statuses) do 
     found = Enum.filter(statuses, fn(status) -> Enum.any?(valid_status, &(&1 == status["state"])) end) 
@@ -111,7 +110,6 @@ defmodule GithubCi.Connector do
 
   def valid_status, do: ["success", "inactive", "failure"]
 
-  def parse_params(%{}), do: @sample_info
   def parse_params(params) do
     owner = params["head"]["user"]["login"]
     repo = params["base"]["repo"]["name"]
@@ -119,11 +117,9 @@ defmodule GithubCi.Connector do
     {owner, repo, sha}
   end
 
-  def fire, do: fire(%{})
-
   def fire(params) do
     {_, repo, sha} = parse_params(params)
-    IO.puts "fire param '#{sha}'"
+    IO.puts "fire param sha '#{sha}'"
     case Map.fetch(config, repo) do
       {:ok, data} ->
         case handle("deployment", data, params) do
