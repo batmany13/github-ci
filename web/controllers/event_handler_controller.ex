@@ -14,8 +14,6 @@ defmodule GithubCi.EventHandlerController do
     end
   end
 
-  def process_pr(%{"state" => "open"} = params) do
-    GithubCi.Connector.fire(params)
-  end
+  def process_pr(%{"state" => "open"} = params), do: GithubCi.Connector.fire(params)
   def process_pr(%{"state" => state} = params), do: "received state #{state}, do nothing"
 end

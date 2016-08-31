@@ -1,7 +1,7 @@
 defmodule GithubCi.Connector do
   alias GithubCi.Runscope
 
-  @sample_info {"Brightergy", "github-ci", "ffccdd7be639dc09463f60e707f87de89c0a686f"}
+  @sample_info {"Brightergy", "github-ci", "f3bf50557c6d90d963d3a18ca18e6c9793f00c81"}
 
   def config, do: config(System.get_env("CI_CONFIG"))
   def config(nil), do: "ci_config.json" |> File.read! |> Poison.decode!
@@ -56,6 +56,7 @@ defmodule GithubCi.Connector do
 
   def wait_for_status("heroku", context, params, pids) do
     {dep, status} = deployment(params)
+    IO.puts "got status for deployment #{dep["id"]}"
     send self(), {dep, parse_status(status)}
     receive do
       {dep, {:ok, found}} ->
@@ -148,7 +149,8 @@ defmodule GithubCi.Connector do
   end
 
   def handle("deployment", "heroku", config_data, params) do
-    IO.puts "handling wait for deployment to heroku"
+    {_, repo, sha} = parse_params(params)
+    IO.puts "handling heroku deployment for '#{repo}', '#{sha}'"
     context = "deployment-to-heroku"
     data = %{"state" => "pending",
             "description" => "waiting for deployment to finish",
