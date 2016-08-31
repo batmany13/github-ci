@@ -16,7 +16,6 @@ config :github_ci, GithubCi.Endpoint,
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   http: [port: {:system, "PORT"}],
   url: [host: "github-ci.herokuapp.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
