@@ -56,7 +56,6 @@ defmodule GithubCi.Connector do
 
   def wait_for_status("heroku", context, params, pids) do
     {dep, status} = deployment(params)
-    IO.puts "got status for deployment #{dep["id"]}"
     send self(), {dep, parse_status(status)}
     receive do
       {dep, {:ok, found}} ->
