@@ -23,7 +23,7 @@ defmodule GithubCi.Runscope do
     {:error, "runscope test failure, #{failed}/#{total} tests"}
   end
   def parse_status({:error, %{"reason" => msg}}), do: {:error, msg}
-  def parse_status(params), do: IO.inspect params ; {:wait, "waiting for test execution to finish"}
+  def parse_status(params), do: {:wait, "waiting for test execution to finish"}
   
   def status(%{"bucket_key" => bucket_key, "test_id" => test_id, "test_run_id" => test_run_id}) do
     HTTPoison.start

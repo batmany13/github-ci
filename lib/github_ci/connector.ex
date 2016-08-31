@@ -73,7 +73,6 @@ defmodule GithubCi.Connector do
   def wait_for_status("runscope", context, params, run, 0) do
     IO.puts "wait for runscope status on run 0"
     status = Runscope.status(run)
-    IO.inspect status
     send self(), status
     receive do
       {:ok, desc} ->
@@ -86,8 +85,8 @@ defmodule GithubCi.Connector do
   end
 
   def wait_for_status("runscope", context, params, run, ct) do
-    status = Runscope.status(run)
     IO.puts "in wait for Runscope status, ct #{ct}"
+    status = Runscope.status(run)
     send self(), status
     receive do
       {:ok, desc} ->
@@ -95,6 +94,8 @@ defmodule GithubCi.Connector do
         %{"state" => "success", "description" => desc, "context" => context}
         |> create_status(params)
       {:error, error} ->
+        IO.puts "error with runscope, updating status"
+        IO.inspect error
         %{"state" => "failure", "description" => error, "context" => context}
         |> create_status(params)
     after
