@@ -66,7 +66,7 @@ defmodule GithubCi.Connector do
         {status, msg} = create_status(data, params)
         Enum.map(pids, fn(pid) -> send(pid, {dep, found}) end)
     after
-      5_000 -> wait_for_status("heroku", context, params, pids)
+      15_000 -> wait_for_status("heroku", context, params, pids, ct + 1)
     end
   end
 
