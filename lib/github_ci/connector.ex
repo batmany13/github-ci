@@ -123,7 +123,7 @@ defmodule GithubCi.Connector do
 
   def fire(params) do
     {_, repo, sha} = parse_params(params)
-    IO.puts "fire param '#{sha}'"
+    IO.puts "fire param sha '#{sha}'"
     case Map.fetch(config, repo) do
       {:ok, data} ->
         case handle("deployment", data, params) do
