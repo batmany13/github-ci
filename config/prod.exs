@@ -15,7 +15,7 @@ config :github_ci, GithubCi.Endpoint,
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   http: [port: {:system, "PORT"}],
-  url: [host: "github-ci.herokuapp.com", port: 80],
+  url: [host: "github-ci.herokuapp.com", port: 80]
 
 # Do not print debug messages in production
 config :logger, level: :info
