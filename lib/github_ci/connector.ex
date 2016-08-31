@@ -54,7 +54,9 @@ defmodule GithubCi.Connector do
     }
   end
 
-  def wait_for_status("heroku", context, params, pids) do
+  def wait_for_status("heroku", context, params, pids), do: wait_for_status("heroku", context, params, pids, 0)
+  def wait_for_status("heroku", context, params, pids, ct) do
+    IO.puts "wait for heroku status on run #{ct}"
     {dep, status} = deployment(params)
     send self(), {dep, parse_status(status)}
     receive do
