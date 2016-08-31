@@ -71,9 +71,10 @@ defmodule GithubCi.Connector do
   # This will ignore errors in a wait for status since there's a Runscope bug where
   # calling the test_result on a specific test_run_id returns 404
   def wait_for_status("runscope", context, params, run, 0) do
-    status = Runscope.status(run)
-    send self(), status
     IO.puts "wait for runscope status on run 0"
+    status = Runscope.status(run)
+    IO.inspect status
+    send self(), status
     receive do
       {:ok, desc} ->
         IO.puts desc
