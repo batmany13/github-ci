@@ -1,7 +1,7 @@
 defmodule GithubCi.Connector do
   alias GithubCi.Runscope
 
-  @sample_info {"Brightergy", "github-ci", "f3bf50557c6d90d963d3a18ca18e6c9793f00c81"}
+  @sample_info {"Brightergy", "brighterlink-io", "d9b5a056931989431c40e9281cbfc3fb5d6d9bc8"}
 
   def config, do: config(System.get_env("CI_CONFIG"))
   def config(nil), do: "ci_config.json" |> File.read! |> Poison.decode!
@@ -113,6 +113,7 @@ defmodule GithubCi.Connector do
 
   def valid_status, do: ["success", "inactive", "failure"]
 
+  def parse_params(nil), do: @sample_info
   def parse_params(params) do
     owner = params["head"]["user"]["login"]
     repo = params["base"]["repo"]["name"]
@@ -197,7 +198,9 @@ defmodule GithubCi.Connector do
         status = Enum.find(found, &(&1["state"] == "success"))
         case Runscope.test_exec(env, status, url, params) do
           {:ok, run} -> 
-           IO.puts "successfully executed test, wait for test completion"
+           %{"test_run_url" => test_url, "test_id" => test_id, "test_run_id" => run_id} = run
+           IO.puts "successfully executed test wait for test completion"
+           IO.puts "\tTest Run  : '#{test_id}'\n\tTest Run ID : '#{run_id}'\n\tTest URL : #{test_url}"
            {:ok, pid} = Task.start(fn -> wait_for_status("runscope", context, params, run, 0) end)
           {:error, msg} -> IO.puts "error with execution : #{msg}"
         end
