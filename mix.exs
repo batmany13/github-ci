@@ -28,9 +28,9 @@ defmodule GithubCi.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.4"},
+    [{:phoenix, "~> 1.2.1"},
      {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"},
+     {:cowboy, "~> 1.0.4"},
      {:tentacat, "~> 0.5"},
      {:poison, "~> 2.0"},
      {:httpoison, "~> 0.9.0"}
